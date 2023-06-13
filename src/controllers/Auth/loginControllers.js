@@ -17,7 +17,7 @@ dotenv.config();
 const SECRETKEY = process.env.SECRETKEY;
 
 class loginControllers {
-     /**Login */
+    /**Login */
     static async login(req, res) {
         const { email, password } = req.body;
         try {
@@ -28,27 +28,25 @@ class loginControllers {
                     message: 'Invalid user/email or password',
                     success: false,
                     statusCode: 404,
-                    data: null
                 };
                 res.status(404).json(response);
                 return;
             }
 
-            // Verifica se a senha está correta
+            // Verifica se a senha está correta            
             const match = await loginClass.verifyPassword(password, user.hash);
             if (!match) {
                 const response = {
                     message: 'Invalid user/email or password',
                     success: false,
                     statusCode: 401,
-                    data: null
                 };
                 res.status(401).json(response);
                 return;
             }
 
             // Gera o token JWT
-            const token = jwt.sign({ id: user._id, email: user.email, name: user.name }, SECRETKEY, {
+            const token = jwt.sign({ id: user._id, email: user.email, name: user.name, role: user.role }, SECRETKEY, {
                 expiresIn: '1h'
             });
 
@@ -60,7 +58,6 @@ class loginControllers {
                 message: "Login successful",
                 success: true,
                 statusCode: 200,
-                data: null
             };
             res.status(200).json(response);
         } catch (error) {
@@ -68,7 +65,6 @@ class loginControllers {
                 message: error.message,
                 success: false,
                 statusCode: 500,
-                data: null
             };
             res.status(500).json(response);
         }
@@ -77,7 +73,7 @@ class loginControllers {
     /**Registro */
     static async register(req, res) {
         const { name, email, password } = req.body;
-    
+
         try {
             // Verificar se o Gym já existe com o email fornecido
             const existingGym = await Gym.findOne({ email });
@@ -89,10 +85,10 @@ class loginControllers {
                 };
                 return res.status(400).json(response);
             }
-    
+
             // Hash da senha
             const hashedPassword = await loginClass.hashPassword(password);
-    
+
             // Criar novo Gym
             const newGym = new Gym({
                 name,
@@ -101,10 +97,10 @@ class loginControllers {
                 role: "Admin",
                 active: true
             });
-    
+
             // Salvar no banco de dados
             const savedGym = await newGym.save();
-    
+
             const response = {
                 message: `Gym created: ${JSON.stringify(savedGym.name)}`,
                 success: true,
@@ -120,8 +116,12 @@ class loginControllers {
             res.status(500).json(response);
         }
     }
-    
 
+    static dev(req, res) {
+
+        res.status(200).send(req.decoded);
+
+    }
 }
 
 
