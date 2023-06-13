@@ -9,8 +9,8 @@ const nomeRota = "login";
 loginRouter.route(`/${nomeRota}`)
   .post(loginControllers.login);
 
-// loginRouter.route(`/${nomeRota}/dev`)
-//   .get(verifyJWT,loginControllers.read);
+loginRouter.route(`/${nomeRota}/dev`)
+  .get(verifyJWT,loginControllers.dev);
 
 
 export default loginRouter;
