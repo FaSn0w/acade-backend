@@ -1,7 +1,7 @@
 import  express  from "express";
-import  crudRouter from "./dadosRoutes.js"
 import loginRouter from "./Auth-Routes/loginRoutes.js";
 import registerRouter from "./Auth-Routes/registerRoutes.js";
+import personalRouter from "./PersonalRoutes/registerPersonal.js";
 
 const routes = (app) => {
     app.route('/').get((req,res) => {
@@ -11,7 +11,9 @@ const routes = (app) => {
     app.use(
         express.json(),        
         loginRouter,
-        registerRouter
+        registerRouter,
+        personalRouter
+
     )
 }
 

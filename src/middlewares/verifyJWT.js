@@ -1,20 +1,21 @@
-import jwt from 'jsonwebtoken';
+import * as jwt from 'jsonwebtoken';
 // import dotenv from "dotenv";
 
 // dotenv.config();
 // const SECRETKEY = process.env.SECRETKEY;
 
-const SECRETKEY = "SenhaSECRETA";
+const SECRETKEY = "superSecretLevel100";
 
 function verifyJWT(req, res, next) {
-  const token = req.headers['x-access-token'];
+  const token = req.headers['x-access-token'];  
   if (!token) return res.status(401).json({ auth: false, message: 'No token provided.' });
 
   jwt.verify(token, SECRETKEY, function (err, decoded) {
+    console.log(err)
     if (err) return res.status(500).json({ auth: false, message: 'Failed to authenticate token.' });
 
     // se tudo estiver ok, salva no request para uso posterior
-    req.userId = decoded.id;
+    req.decoded = decoded;    
     next();
   });
 }
