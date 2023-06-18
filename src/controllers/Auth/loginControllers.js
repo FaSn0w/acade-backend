@@ -47,14 +47,14 @@ class loginControllers {
 
             // Gera o token JWT
             const token = jwt.sign({ id: user._id, email: user.email, name: user.name, role: user.role }, SECRETKEY, {
-                expiresIn: '1h'
+                expiresIn: '5h'
             });
 
             const response = {
                 user: user._id,
                 auth: true,
                 token: token,
-                expiresIn: "1h",
+                expiresIn: "5h",
                 message: "Login successful",
                 success: true,
                 statusCode: 200,

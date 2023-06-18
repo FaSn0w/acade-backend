@@ -1,7 +1,8 @@
 import  express  from "express";
-import loginRouter from "./Auth-Routes/loginRoutes.js";
-import registerRouter from "./Auth-Routes/registerRoutes.js";
-import personalRouter from "./PersonalRoutes/registerPersonal.js";
+import loginRouter from "./Auth-Routes-Gym/loginRoutes.js";
+import registerRouter from "./Auth-Routes-Gym/registerRoutes.js";
+import gymRouter from "./gymLayer/gymPowers.js";
+import userRouter from "./personalLayer/personalPowers.js";
 
 const routes = (app) => {
     app.route('/').get((req,res) => {
@@ -12,7 +13,7 @@ const routes = (app) => {
         express.json(),        
         loginRouter,
         registerRouter,
-        personalRouter
+        gymRouter
 
     )
 }

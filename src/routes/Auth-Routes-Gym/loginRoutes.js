@@ -10,7 +10,7 @@ loginRouter.route(`/${nomeRota}`)
   .post(loginControllers.login);
 
 loginRouter.route(`/${nomeRota}/dev`)
-  .get(verifyJWT,loginControllers.dev);
+  .get(verifyJWT("User"),loginControllers.dev);
 
 
 export default loginRouter;

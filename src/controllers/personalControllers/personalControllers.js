@@ -9,9 +9,8 @@ class personalControllers {
 
   static async getAllPersonals(req, res) {
     try {
-      if (req.decoded.role !== "Admin") {
-        return res.status(403).json({ message: "Access denied. Only Admin role is allowed." });
-      }
+      
+      
       const personals = await Personal.find({ gym_id: req.decoded.id })
         .populate('gym_id', 'name email')
         .select("-hash")
@@ -39,9 +38,7 @@ class personalControllers {
     };
 
     try {
-      if (req.decoded.role !== "Admin") {
-        return res.status(403).json({ message: "Access denied. Only Admin role is allowed." });
-      }
+      
 
       const personal = new Personal(newPersonal);
       await personal.save();
@@ -57,9 +54,7 @@ class personalControllers {
     const personalId = req.params.id;
 
     try {
-      if (req.decoded.role !== "Admin" && req.decoded.id !== req.params.id) {
-        return res.status(403).json({ message: "Access denied. You can only retrieve your own personal information." });
-      }
+     
 
       const personal = await Personal.findOne({ _id: personalId, gym_id: req.decoded.id })
         .populate('gym_id', 'name email')
@@ -81,9 +76,7 @@ class personalControllers {
     const { name, email } = req.body;
 
     try {
-      if (req.decoded.role !== "Admin" && req.decoded.id !== req.params.id) {
-        return res.status(403).json({ message: "Access denied. You can only update your own personal information." });
-      }
+      
 
       const personal = await Personal.findOneAndUpdate(
         { _id: personalId, gym_id: req.decoded.id },
@@ -108,10 +101,7 @@ class personalControllers {
   static async deletePersonal(req, res) {
     const personalId = req.params.id;
 
-    try {
-      if (req.decoded.role !== "Admin" && req.decoded.id !== req.params.id) {
-        return res.status(403).json({ message: "Access denied. You can only delete your own personal information." });
-      }
+    try {     
 
       const personal = await Personal.findOneAndDelete({ _id: personalId, gym_id: req.decoded.id })
         .populate('gym_id', 'name email')

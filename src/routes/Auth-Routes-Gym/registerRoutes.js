@@ -8,7 +8,4 @@ const nomeRota = "register";
 registerRouter.route(`/${nomeRota}`)
   .post(loginControllers.register);
 
-// registerRouter.route(`/${nomeRota}/:id`)
-//   .delete(loginControllers.delete);
-
 export default registerRouter;
