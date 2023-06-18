@@ -1,5 +1,7 @@
 import * as jwt from 'jsonwebtoken';
 
+import { debugFunction } from '../services/debug.js';
+
 const roleLevel = {
   "Master":0,
   "Admin": 1,
@@ -26,8 +28,9 @@ function verifyJWT(requiredRole) {
         return res.status(403).json({ message: `Access denied for ${decoded.role}. Only ${requiredRole} role or higher is allowed.` });
       }
 
-      // Se tudo estiver ok, salva no request para uso posterior
-      req.decoded = decoded;    
+      // Se tudo estiver ok, salva no request para uso posterior           
+      req.decoded = decoded;  
+      debugFunction(req);  
       next();
     });
   };
