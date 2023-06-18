@@ -1,11 +1,11 @@
 // Importa Gym
-import Gym from '../../models/gymModels/gymModel.js';
+import Gym from '../../../models/gymModels/gymModel.js';
 
 // Importa Mongoose
 import mongoose from "mongoose";
 
 // Classe para encryptar senhas. 
-import loginClass from '../../services/bcryptFunc.js';
+import loginClass from '../../../services/bcryptFunc.js';
 
 // JWT
 import jwt from 'jsonwebtoken';
@@ -16,7 +16,7 @@ import dotenv from "dotenv";
 dotenv.config();
 const SECRETKEY = process.env.SECRETKEY;
 
-class loginControllers {
+class loginGymControllers {
     /**Login */
     static async login(req, res) {
         const { email, password } = req.body;
@@ -46,7 +46,7 @@ class loginControllers {
             }
 
             // Gera o token JWT
-            const token = jwt.sign({ id: user._id, email: user.email, name: user.name, role: user.role }, SECRETKEY, {
+            const token = jwt.sign({ id: user._id, email: user.email, name: user.name, role: user.role ,gym_id :user_id }, SECRETKEY, {
                 expiresIn: '5h'
             });
 
@@ -125,4 +125,4 @@ class loginControllers {
 }
 
 
-export default loginControllers;
+export default loginGymControllers;
