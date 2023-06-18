@@ -1,5 +1,5 @@
 import mongoose from 'mongoose';
-import Group from './groupModel.js'; // Importar o modelo Group
+import Personal from './personalModel'; // Importar o modelo Personal
 import Gym from './gymModel.js'; // Importar o modelo Gym
 
 const userSchema = new mongoose.Schema({
@@ -8,7 +8,7 @@ const userSchema = new mongoose.Schema({
   role: { type: String, required: true },
   active: { type: Boolean, default: true },
   hash: { type: String, required: true },
-  group_id: { type: mongoose.Schema.Types.ObjectId, ref: 'Group' },
+  personal_id: { type: mongoose.Schema.Types.ObjectId, ref: 'Personal' },
   gym_id: { type: mongoose.Schema.Types.ObjectId, ref: 'Gym' }
 });
 
