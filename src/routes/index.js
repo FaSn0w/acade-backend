@@ -1,9 +1,10 @@
 import  express  from "express";
-import loginRouter from "./Auth-Routes-Gym/loginRoutes.js";
-import registerRouter from "./Auth-Routes-Gym/registerRoutes.js";
+import loginGymRouter from "./Auth-Routes/Auth-Routes-Gym/loginGymRoutes.js";
+import registerGymRouter from "./Auth-Routes/Auth-Routes-Gym/registerGymRoutes.js";
 import gymRouter from "./gymLayer/gymPowers.js";
-import userRouter from "./personalLayer/personalPowers.js";
-
+import loginPersonalRouter from "../routes/Auth-Routes/Auth-Personal/loginPersonalRoutes.js"
+import personalRouter from "./personalLayer/personalPowers.js";
+import loginUserRouter from "./Auth-Routes/Auth-User/LoginUserRoutes.js";
 const routes = (app) => {
     app.route('/').get((req,res) => {
         res.status(200).send({titulo:"AcadeDB"});
@@ -11,9 +12,12 @@ const routes = (app) => {
 
     app.use(
         express.json(),        
-        loginRouter,
-        registerRouter,
-        gymRouter
+        loginGymRouter,
+        registerGymRouter,
+        gymRouter,
+        loginPersonalRouter,
+        personalRouter,
+        loginUserRouter
 
     )
 }

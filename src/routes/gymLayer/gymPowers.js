@@ -6,6 +6,8 @@ const gymRouter = express.Router();
 
 const nomeRota = "gymAdmin";
 
+// Add query e paginação
+
 gymRouter.route(`/${nomeRota}`)
   .post(verifyJWT("Admin"), personalControllers.createPersonal)
   .get(verifyJWT("Admin"), personalControllers.getAllPersonals);
