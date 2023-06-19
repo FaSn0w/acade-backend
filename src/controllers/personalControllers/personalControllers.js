@@ -1,4 +1,5 @@
-import express from "express";
+
+
 import Personal from "../../models/gymModels/personalModel.js";
 import loginClass from "../../services/bcryptFunc.js";
 
@@ -24,8 +25,8 @@ class personalControllers {
 
   static async createPersonal(req, res) {
     const { name, email } = req.body;
-    console.log(name, email);
-    console.log(req.decoded);
+    //console.log(name, email);
+    //console.log(req.decoded);
 
     const hash = await loginClass.hashPassword(email);
     const newPersonal = {
