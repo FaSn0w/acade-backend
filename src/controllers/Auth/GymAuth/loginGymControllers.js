@@ -19,7 +19,11 @@ const SECRETKEY = process.env.SECRETKEY;
 class loginGymControllers {
     /**Login */
     static async login(req, res) {
+
         const { email, password } = req.body;
+
+        console.log(email, password);
+    
         try {
             // Verifica se o usuário existe
             const user = await Gym.findOne({ email });
@@ -46,7 +50,7 @@ class loginGymControllers {
             }
 
             // Gera o token JWT
-            const token = jwt.sign({ id: user._id, email: user.email, name: user.name, role: user.role ,gym_id :user_id }, SECRETKEY, {
+            const token = jwt.sign({ id: user._id, email: user.email, name: user.name, role: user.role ,gym_id :user._id }, SECRETKEY, {
                 expiresIn: '5h'
             });
 
